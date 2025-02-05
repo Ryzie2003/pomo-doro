@@ -85,6 +85,10 @@ main {
     opacity: 0.7;
 }
 
+.timer-buttons button:hover {
+  opacity: 1;
+}
+
 .timer-buttons button.selected {
   opacity: 1;
 }
@@ -99,12 +103,12 @@ main {
 
 .misc-buttons img{
   width: 50px;
-  cursor: pointer;
+  opacity: 0.6;
 }
 
 .misc-buttons img:hover{
-  width: 50px;
   cursor: pointer;
+  opacity: 1;
 }
 
 

@@ -6,6 +6,7 @@ import setting from './assets/setting.png'
 import chart from './assets/bar-chart.png'
 import timerEndAudio from './assets/endAudio.mp3'
 import clsx from 'clsx';
+import { motion } from "framer-motion"
 
 import './App.css'
 
@@ -20,6 +21,7 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(pomoSeconds);
   const [isRunning, setIsRunning] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
+  const [showTomato, setShowTomato] = useState(false);
 
   const titleText = currRotation === 1500 ? "Pomodoro Timer" : currRotation === 900 ? "Long Break" : "Short Break";
 
@@ -49,6 +51,9 @@ function App() {
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
+          if(currRotation === 1500) {
+            setShowTomato(true);
+          }
           playAudio();
           clearInterval(interval);
           resetTimer(currRotation);
@@ -57,7 +62,7 @@ function App() {
         return prevTime - 1;
       });
 
-      setTotalTime((prev) => prev + 1);
+      if (currRotation === 1500) {setTotalTime((prev) => prev + 1);}
     }, 1000);
     return () => clearInterval(interval); // Cleanup on unmount or pause
   }, [isRunning]);
@@ -100,6 +105,23 @@ function App() {
             <img id="reset" src={reset} onClick={() => resetTimer(currRotation)}/>
             <img id="chart" src={chart} />
         </div>
+        {showTomato && (
+        <motion.img
+          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg" 
+          alt="Jumping Tomato"
+          style={{
+            width: "500px",
+            height: "500px",
+            position: "absolute",
+            left: "50%",
+            bottom: "0",
+            transform: "translateX(-50%)",
+          }}
+          initial={{ y: 0, opacity: 1, scale: 1 }}
+          animate={{ y: -500, opacity: 0, scale: 1.5 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        />
+      )}
       </main>
     </>
   )
