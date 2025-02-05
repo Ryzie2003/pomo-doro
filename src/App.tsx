@@ -13,11 +13,12 @@ function App() {
   const shortBreakSeconds: number = 300; 
   const longBreakSeconds: number = 900; 
 
-
   //state
   const [currRotation, setCurrRotation] = useState(pomoSeconds);
   const [timeLeft, setTimeLeft] = useState(pomoSeconds);
   const [isRunning, setIsRunning] = useState(false);
+
+  const titleText = currRotation === 1500 ? "Pomodoro Timer" : currRotation === 900 ? "Long Break" : "Short Break";
 
   function displayTime(seconds: number) {
       const timerDisplay = document.getElementById('timer-text');
@@ -39,10 +40,12 @@ function App() {
   useEffect(() => {
     if (!isRunning) return; // Pause if not running
     console.log(timeLeft);
+    
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(interval);
+          resetTimer(currRotation);
           return 0; // Stop at 0
         }
         return prevTime - 1;
@@ -50,6 +53,10 @@ function App() {
     }, 1000);
     return () => clearInterval(interval); // Cleanup on unmount or pause
   }, [isRunning]);
+
+  useEffect(() => {
+    document.title = formatTime(timeLeft) + " | " + titleText ;
+  }, [timeLeft]);
 
   function resetTimer(rotation: number) {
       setTimeLeft(rotation);
