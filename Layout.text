@@ -1,0 +1,32 @@
+Action items
+
+✅ Figma/Design layout first
+
+   Required items
+   - Header (title)
+   - Main 
+        - timer buttons (pomo + 2 breaks) 
+        - timer display
+        - pause button
+        - reset button
+        - settings
+   - footer
+
+   : possible extra features
+   - customizable background
+   - customizable music on end
+   - time tracking
+
+   note ! when starting off, it's okay to place template images/text
+
+2. Code website, styling each part to match Design
+
+   - Header (title)
+   - Main 
+        - timer buttons (pomo + 2 breaks) 
+        - timer display
+        - reset button
+        - settings
+   - footer
+
+3. Add functionality
