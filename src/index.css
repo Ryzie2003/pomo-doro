@@ -39,7 +39,7 @@ main {
   
 }
 
-.timer-text {
+#timer-text {
   font-size: 90px;
   letter-spacing: 4px;
   text-align: center;
@@ -49,7 +49,7 @@ main {
   font-weight: 400;
 }
 
-.timer-start-text {
+#timer-start-text {
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 0.5px;
@@ -70,7 +70,7 @@ main {
 
 .timer-buttons button {
     width: 80px; /* Adjust as needed */
-    height: 45px; /* Half of the width for an ellipse */
+    height: 50px; /* Half of the width for an ellipse */
     border-radius: 50%; /* Ensures the elliptical shape */
     background-color: white; /* White fill */
     border: none; /* Remove default border */
