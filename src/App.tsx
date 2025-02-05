@@ -25,6 +25,7 @@ function App() {
       if (timerDisplay) {
         timerDisplay.textContent = ((timeLeft/60) >= 10) ? ((timeLeft/60).toString() + ":00") : ("0" + (timeLeft/60).toString() + ":00");
       }
+      setIsRunning(false);
       setCurrRotation(seconds);
       setTimeLeft(seconds);
   }
@@ -49,6 +50,11 @@ function App() {
     }, 1000);
     return () => clearInterval(interval); // Cleanup on unmount or pause
   }, [isRunning]);
+
+  function resetTimer(rotation: number) {
+      setTimeLeft(rotation);
+      displayTime(currRotation);
+  }
  
 
   return (
@@ -65,7 +71,7 @@ function App() {
         </div>
         <div className="misc-buttons">
             <img id="setting" src={setting}/>
-            <img id="reset" src={reset}/>
+            <img id="reset" src={reset} onClick={() => resetTimer(currRotation)}/>
             <img id="chart" src={chart} />
         </div>
       </main>
