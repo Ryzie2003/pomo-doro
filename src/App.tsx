@@ -19,6 +19,7 @@ function App() {
   const [currRotation, setCurrRotation] = useState(pomoSeconds);
   const [timeLeft, setTimeLeft] = useState(pomoSeconds);
   const [isRunning, setIsRunning] = useState(false);
+  const [totalTime, setTotalTime] = useState(0);
 
   const titleText = currRotation === 1500 ? "Pomodoro Timer" : currRotation === 900 ? "Long Break" : "Short Break";
 
@@ -40,8 +41,10 @@ function App() {
   };
 
   useEffect(() => {
-    if (!isRunning) return; // Pause if not running
-    console.log(timeLeft);
+    if (!isRunning) {
+      console.log(totalTime);
+      return
+    }; // Pause if not running
     
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -53,6 +56,8 @@ function App() {
         }
         return prevTime - 1;
       });
+
+      setTotalTime((prev) => prev + 1);
     }, 1000);
     return () => clearInterval(interval); // Cleanup on unmount or pause
   }, [isRunning]);
