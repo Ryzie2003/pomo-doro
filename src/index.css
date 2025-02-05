@@ -18,12 +18,11 @@ html, body, .root {
 }
 
 main {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  place-items: center;
   flex-direction: column;
   height: 100vh;
-
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
 }
 
 .timer {
@@ -31,7 +30,12 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 120px;
+  grid-row: 5;
+}
+
+.timer button {
+  cursor: pointer;
+  
 }
 
 .timer-text {
@@ -59,6 +63,8 @@ main {
   justify-content: center;
   align-items: center;
   gap: 50px;
+  grid-row: 8;
+
 }
 
 .timer-buttons button {
@@ -77,5 +83,16 @@ main {
     font-family: Itim;
 }
 
+.misc-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  grid-row: 9;
+}
+
+.misc-buttons img{
+  width: 50px;
+}
 
 
