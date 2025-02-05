@@ -82,6 +82,11 @@ main {
     font-size: 12px;
     font-weight: 400;
     font-family: Itim;
+    opacity: 0.7;
+}
+
+.timer-buttons button.selected {
+  opacity: 1;
 }
 
 .misc-buttons {

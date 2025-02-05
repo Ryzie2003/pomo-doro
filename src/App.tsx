@@ -4,6 +4,8 @@ import ellipse from './assets/ellipse-button.png'
 import reset from './assets/reset.png'
 import setting from './assets/setting.png'
 import chart from './assets/bar-chart.png'
+import timerEndAudio from './assets/endAudio.mp3'
+import clsx from 'clsx';
 
 import './App.css'
 
@@ -44,6 +46,7 @@ function App() {
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
+          playAudio();
           clearInterval(interval);
           resetTimer(currRotation);
           return 0; // Stop at 0
@@ -62,19 +65,30 @@ function App() {
       setTimeLeft(rotation);
       displayTime(currRotation);
   }
- 
+
+  function playAudio() {
+    const audio = document.getElementById('myAudio');
+    if(audio) {
+      audio.play();
+    }
+  }
+
+  const pomoSelect = clsx('button', currRotation === 1500 ? 'selected': '');
+  const longBreakSelect = clsx('button', currRotation === 900 ? 'selected': '');
+  const shortBreakSelect = clsx('button', currRotation === 300 ? 'selected': '');
 
   return (
     <>
       <main>
         <div className="timer" onClick={() => setIsRunning(!isRunning)}>
+        <audio id="myAudio" src={timerEndAudio}></audio>
           <h1 id="timer-text">{formatTime(timeLeft)}</h1>
           <p id="timer-start-text">{isRunning ? 'click to pause' : 'click to start'}</p>
         </div>
         <div className ="timer-buttons">
-            <button id="pomodoro" onClick={() => displayTime(pomoSeconds)}>pomodoro</button>
-            <button id="short-break" onClick={() => displayTime(shortBreakSeconds)}>short break</button>
-            <button id="long-break" onClick={() => displayTime(longBreakSeconds)}>long break</button>
+            <button id="pomodoro" className={pomoSelect} onClick={() => displayTime(pomoSeconds)}>pomodoro</button>
+            <button id="short-break" className={shortBreakSelect} onClick={() => displayTime(shortBreakSeconds)}>short break</button>
+            <button id="long-break" className={longBreakSelect} onClick={() => displayTime(longBreakSeconds)}>long break</button>
         </div>
         <div className="misc-buttons">
             <img id="setting" src={setting}/>
