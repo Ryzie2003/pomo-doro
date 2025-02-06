@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 import ellipse from './assets/ellipse-button.png'
 import reset from './assets/reset.png'
 import setting from './assets/setting.png'
-import chart from './assets/bar-chart.png'
 import timerEndAudio from './assets/endAudio.mp3'
 import clsx from 'clsx';
+import Modal from './Components/MyModal'
 import { motion } from "framer-motion"
 
 import './App.css'
@@ -22,6 +22,15 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [totalTime, setTotalTime] = useState(0);
   const [showTomato, setShowTomato] = useState(false);
+  const [lastRecordedTime, setLastRecordedTime] = useState(0);
+  const [weeklyArray, setWeeklyArray] = useState<number[]>(() => {
+    const storedArray = localStorage.getItem("weeklyArray");
+    return storedArray ? JSON.parse(storedArray) : Array(7).fill(0); // Default week array
+  });
+
+  useEffect(() => {
+    localStorage.setItem("weeklyArray", JSON.stringify(weeklyArray))
+  }, [weeklyArray])
 
   const titleText = currRotation === 1500 ? "Pomodoro Timer" : currRotation === 900 ? "Long Break" : "Short Break";
 
@@ -42,11 +51,26 @@ function App() {
     return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
+  const date = new Date();
+  const today = date.getDay();
+
+  const pauseTimer = () => {
+    setIsRunning(false); // Pause timer
+  
+    if (currRotation === 1500) {
+      setWeeklyArray((prevArray) =>
+        prevArray.map((value, i) => (i === today ? value + (totalTime - lastRecordedTime) : value))
+      );
+
+      setLastRecordedTime(totalTime);
+    }
+  };
+
   useEffect(() => {
     if (!isRunning) {
-      console.log(totalTime);
-      return
-    }; // Pause if not running
+      pauseTimer();
+      return;
+    }  // Pause if not running
     
     const interval = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -62,7 +86,9 @@ function App() {
         return prevTime - 1;
       });
 
-      if (currRotation === 1500) {setTotalTime((prev) => prev + 1);}
+      if (currRotation === 1500) {
+        setTotalTime((prev) => prev + 1);
+      }
     }, 1000);
     return () => clearInterval(interval); // Cleanup on unmount or pause
   }, [isRunning]);
@@ -82,6 +108,12 @@ function App() {
       audio.play();
     }
   }
+
+  // set weekly array
+
+
+
+ 
 
   const pomoSelect = clsx('button', currRotation === 1500 ? 'selected': '');
   const longBreakSelect = clsx('button', currRotation === 900 ? 'selected': '');
@@ -103,7 +135,7 @@ function App() {
         <div className="misc-buttons">
             <img id="setting" src={setting}/>
             <img id="reset" src={reset} onClick={() => resetTimer(currRotation)}/>
-            <img id="chart" src={chart} />
+            <Modal timeSpentArray={weeklyArray}/>
         </div>
         {showTomato && (
         <motion.img
@@ -123,6 +155,9 @@ function App() {
         />
       )}
       </main>
+      <footer>
+        {/* RZ 2025™ */}
+      </footer>
     </>
   )
 }
