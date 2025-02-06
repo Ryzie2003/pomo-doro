@@ -45,10 +45,10 @@ export default function Modal(props) {
 
             <div className="modal">
                 <div className="overlay">
-                    <div className="modal-content" onClick={toggleModal}>
+                    <div className="modal-content">
                         <h2>Weekly Summary</h2>
                         <p>{currDates}</p>
-                        <img src={exit} id="exitButton" />
+                        <img src={exit} id="exitButton" onClick={toggleModal}/>
                         <BarChart
                             xAxis={[
                                 {
@@ -60,17 +60,12 @@ export default function Modal(props) {
                             yAxis={[
                                 {
                                     label: 'hours worked',
-                                    min: 0, // Start at 0
-                                    tickInterval: [0, 4, 8], // 1 hour interval (in seconds)
-                                    valueFormatter: (value) => {
-                                      const hours = value / 3600;
-                                      return hours >= 1 ? `${hours}h` : `${Math.round(value / 60)}m`;
-                                    },
+                                    tickInterval: [1, 2, 4, 6, 8],
                                 },
                               ]}
                             series={[
                                 {
-                                data: props.timeSpentArray,
+                                data: props.timeSpentArray.map((seconds: number) => seconds / 3600),
                                 },
                             ]}
                             margin={{
