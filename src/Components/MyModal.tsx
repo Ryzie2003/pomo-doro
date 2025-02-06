@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart'
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import exit from '../assets/cross.png'
 import chart from '../assets/bar-chart.png'
 
-export default function Modal(props) {
+export default function Modal(props: { timeSpentArray: number[]; }) {
     const [modal, setModal] = useState(false);
 
     function toggleModal() {

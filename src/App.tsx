@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-import ellipse from './assets/ellipse-button.png'
 import reset from './assets/reset.png'
 import setting from './assets/setting.png'
 import timerEndAudio from './assets/endAudio.mp3'
@@ -103,7 +102,7 @@ function App() {
   }
 
   function playAudio() {
-    const audio = document.getElementById('myAudio');
+    const audio = document.getElementById('myAudio') as HTMLAudioElement;
     if(audio) {
       audio.play();
     }
