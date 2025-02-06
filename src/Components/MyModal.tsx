@@ -60,12 +60,15 @@ export default function Modal(props: { timeSpentArray: number[]; }) {
                             yAxis={[
                                 {
                                     label: 'hours worked',
-                                    tickInterval: [1, 2, 4, 6, 8],
+                                    min: 0,
+                                    max: 10,
+                                    tickInterval: [2, 4, 6, 8, 10],
+                                    valueFormatter: (value) => `${value}h` // Convert seconds to hours
                                 },
                               ]}
                             series={[
                                 {
-                                data: props.timeSpentArray.map((seconds: number) => seconds / 3600),
+                                    data: props.timeSpentArray.map((seconds: number) => seconds / 3600),
                                 },
                             ]}
                             margin={{
