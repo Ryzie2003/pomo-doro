@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import reset from './assets/reset.png'
-import setting from './assets/setting.png'
 import timerEndAudio from './assets/endAudio.mp3'
 import clsx from 'clsx';
 import Chart from './Components/Chart'
-import { motion } from "framer-motion"
 import Setting from './Components/Settings'
+import { motion } from "framer-motion"
+
 
 import './App.css'
 
