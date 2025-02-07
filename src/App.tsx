@@ -4,8 +4,9 @@ import reset from './assets/reset.png'
 import setting from './assets/setting.png'
 import timerEndAudio from './assets/endAudio.mp3'
 import clsx from 'clsx';
-import Modal from './Components/MyModal'
+import Chart from './Components/Chart'
 import { motion } from "framer-motion"
+import Setting from './Components/Settings'
 
 import './App.css'
 
@@ -132,9 +133,9 @@ function App() {
             <button id="long-break" className={longBreakSelect} onClick={() => displayTime(longBreakSeconds)}>long break</button>
         </div>
         <div className="misc-buttons">
-            <img id="setting" src={setting}/>
+            <Setting/>
             <img id="reset" src={reset} onClick={() => resetTimer(currRotation)}/>
-            <Modal timeSpentArray={weeklyArray}/>
+            <Chart timeSpentArray={weeklyArray}/>
         </div>
         {showTomato && (
         <motion.img

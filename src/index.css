@@ -13,7 +13,6 @@ body {
   background-blend-mode: lighten;
   filter: brightness(1.2) contrast(1.1) saturate(1.3) hue-rotate(10deg)
           drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.3));
-  
 }
 
 html, body, .root {
@@ -108,6 +107,7 @@ main {
   align-items: center;
   gap: 15px;
   grid-row: 9;
+  z-index: 1;
 }
 
 .misc-buttons img{
@@ -120,7 +120,7 @@ main {
   opacity: 1;
 }
 
-.modal, .overlay {
+.modal-chart, .overlay-chart, .modal-settings, .overlay-settings {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -130,12 +130,19 @@ main {
   position: fixed;
 }
 
-.overlay {
+.overlay-chart, .overlay-settings {
   background: rgba(49, 49, 49, 0.8);
   display: flex;
 }
+.modal-chart {
+  z-index: 5;
+}
 
-.modal-content {
+.modal-settings {
+  z-index: 100;
+}
+
+.modal-content-chart{
   margin: auto;
   width: 65vw;
   height: 65vh;
@@ -147,20 +154,131 @@ main {
   max-width: 700px;
 }
 
-.modal-content h2 {
+.modal-content-settings {
+  margin: auto;
+  width: 65vw;
+  height: 65vh;
+  background-color: white;
+  opacity: 0.9;
+  padding: 25px;
+  position: relative;
+  max-width: 400px;
+  text-align: left;
+}
+
+.appearance {
+  margin-left: 30px;
+  margin-top: 50px;
+  margin-right: 30px;
+}
+
+.appearance hr {
+  margin: 0;
+  width: 95px;
+}
+
+.appearance h3 {
+  font-size: 16px;
+  opacity: 0.7;
+}
+.appearance h4 {
+  font-size: 19px;
+}
+
+.darkMode {
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.backgroundChange {
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 60px;
+}
+
+.modal-content-chart h2 {
   font-size: 1.7rem;
 }
-.modal-content p{
+.modal-content-chart p{
   font-size: 1rem;
   margin: 0;
   margin-top: -10px;
 }
+
+
 
 #exitButton {
   position: absolute;
   top: 15px;
   right: 15px;
   width: 40px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.root-dark {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 
