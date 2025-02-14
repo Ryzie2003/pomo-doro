@@ -3,20 +3,7 @@ import { getTimers, getSingleTimer, createTimer, updateTimer, deleteTimer } from
 
 const router = express.Router();
 
-
-// get request - read all
-router.get("/", getTimers);
-
-// get request - read one
-router.get("/:id", getSingleTimer);
-
-// post request - create
-router.post("/", createTimer);
-
-// put request - update
-router.put("/:id", updateTimer);
-
-// delete request - delete
-router.delete("/:id", deleteTimer);
+router.route('/').get(getTimers).post(createTimer);
+router.route('/:id').get(getSingleTimer).put(updateTimer).delete(deleteTimer);
 
 export default router;
