@@ -1,7 +1,10 @@
 import express from "express";
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+
+// import routes
+import routes from "./routes/timerRoutes";
 
 dotenv.config({path: '../.env'});
 const app = express();
@@ -22,10 +25,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Sample Route
-app.get("/test", (req, res) => {
-  res.send("API is running...");
-});
+app.use('/api/time', routes)
 
 // Start Server
 const PORT = process.env.PORT || 5000;
