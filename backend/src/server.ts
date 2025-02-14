@@ -3,7 +3,7 @@ import mongoose, { ConnectOptions } from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-dotenv.config();
+dotenv.config({path: '../.env'});
 const app = express();
 
 // Middleware
@@ -23,7 +23,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Sample Route
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("API is running...");
 });
 
