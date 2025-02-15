@@ -1,9 +1,9 @@
 import express from 'express'
-import { getTimers, getSingleTimer, createTimer, updateTimer, deleteTimer } from '../controllers/timerController';
+import { getUsers, getUserTimer, signup, updateTimer, deleteUser } from '../controllers/userController';
 
 const router = express.Router();
 
-router.route('/').get(getTimers).post(createTimer);
-router.route('/:id').get(getSingleTimer).put(updateTimer).delete(deleteTimer);
+router.route('/').get(getUsers).post(signup);
+router.route('/:id').get(getUserTimer).put(updateTimer).delete(deleteUser);
 
 export default router;

@@ -72,13 +72,13 @@ main {
 }
 
 .timer-buttons button {
-    width: 10vw; /* Adjust as needed */
+    width: 8vw; /* Adjust as needed */
     height: 6vh; /* Half of the width for an ellipse */
     max-width: 110px;
     max-height: 80px;
     min-width: 80px;
-    min-height: 50px;
-    border-radius: 50%; /* Ensures the elliptical shape */
+    min-height: 40px;
+    border-radius: 25px; /* Ensures the elliptical shape */
     background-color: white; /* White fill */
     border: none; /* Remove default border */
     display: flex;
