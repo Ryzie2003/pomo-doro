@@ -2,16 +2,13 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { userModel } from '../models/userModel';
+import { IGetUserAuthInfoRequest } from '../utils/definitions';
+import { Response } from 'express'
 
 export const getUsers = asyncHandler(async (req, res) => {
     const timers = await userModel.find();
 
     res.status(200).json(timers);
-})
-
-export const getUserTimer = asyncHandler(async (req, res) => {
-    const user = await userModel.findById(req.params.id);
-    res.status(200).json({msg: `weekly studied time array: [${user?.weeklyArray}]`});
 })
 
 export const signupUser = asyncHandler(async (req, res) => {
@@ -37,7 +34,6 @@ export const signupUser = asyncHandler(async (req, res) => {
             username: username,
             password: hashedPassword,
             email: email,
-            weeklyArray: [1, 2, 3],
         })
         res.status(201).json({...createUser, token: generateToken(createUser._id)});
     }
@@ -68,6 +64,20 @@ export const loginUser = asyncHandler(async (req, res) => {
     }
 })
 
+// user gets own info
+export const getMe = asyncHandler(async (req: IGetUserAuthInfoRequest, res: Response) => {
+    const user = await userModel.findById(req.user.id).select('_id username email');
+    const _id = user?._id;
+    const email = user?.email;
+    const username = user?.username;
+
+    res.status(200).json({
+        _id,
+        username,
+        email
+    })
+})
+
 export const deleteUser = asyncHandler(async (req, res) => {
     const user = await userModel.findById(req.params.id);
 
@@ -81,16 +91,13 @@ export const deleteUser = asyncHandler(async (req, res) => {
     }
 })
 
-// update timer object for user
-export const updateTimer = asyncHandler(async (req, res) => {
-    // find the user with req.params.id
+export const updateUser = asyncHandler(async (req, res) => {
     const user = await userModel.findById(req.params.id);
 
     // error check
     if (user) {
-        // update the user's timer in front end
-        const updatedUser = await userModel.findByIdAndUpdate(req.params.id, req.body, {new: true});
-        res.status(201).json(updatedUser);
+        const updatedUser = await userModel.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        res.status(201).json({msg: `Updated user: ${updatedUser}`});
     } else {
         res.status(400);
         throw new Error(`Could not find user with ${req.params.id}`)

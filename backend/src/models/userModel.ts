@@ -16,10 +16,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter your password'],
     },
-    weeklyArray: {
-        type: [Number],
-        required: true
-    }
 }, {
     timestamps: true
 })
