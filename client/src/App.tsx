@@ -9,6 +9,7 @@ import { motion } from "framer-motion"
 
 
 import './App.css'
+import React from 'react';
 
 function App() {
 
@@ -110,11 +111,6 @@ function App() {
   }
 
   // set weekly array
-
-
-
- 
-
   const pomoSelect = clsx('button', currRotation === 1500 ? 'selected': '');
   const longBreakSelect = clsx('button', currRotation === 900 ? 'selected': '');
   const shortBreakSelect = clsx('button', currRotation === 300 ? 'selected': '');

@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectDB } from "./config/db";
 import { errorHandler } from "./middleware/errorHandler";
 
+
 // import routes
 import routes from "./routes/timerRoutes";
 import mongoose from "mongoose";
@@ -17,8 +18,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 app.use(cors());
-app.use('/api/users', routes)
+app.use('/api', routes)
 app.use(errorHandler);
+
 
 
 // Connect to MongoDB

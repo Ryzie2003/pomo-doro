@@ -1,9 +1,12 @@
 import express from 'express'
-import { getUsers, getUserTimer, signup, updateTimer, deleteUser } from '../controllers/userController';
+import { getUsers, getUserTimer, signupUser, loginUser, updateTimer, deleteUser } from '../controllers/userController';
+import { protect } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.route('/').get(getUsers).post(signup);
-router.route('/:id').get(getUserTimer).put(updateTimer).delete(deleteUser);
+router.get('/users', getUsers);
+router.post('/login',protect, loginUser);
+router.route('/signup').post(signupUser);
+router.route('/users/:id').get(getUserTimer).put(updateTimer).delete(deleteUser);
 
 export default router;
